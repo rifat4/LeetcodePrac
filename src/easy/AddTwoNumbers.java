@@ -46,57 +46,57 @@ public class AddTwoNumbers {
     //Without using bigint and without conversions between integers and strings
     public ListNode addTwoNumbersNoConversion(ListNode l1, ListNode l2){
         int carry = 0;
-        ListNode l3 = new ListNode();
-        ListNode temp = l3;
+        ListNode head = new ListNode();
+        ListNode tail = head;
         while(l1 != null || l2 != null){
             if(l1 != null && l2 != null){
-                temp.val = carry + l1.val + l2.val;
-                if(temp.val >= 10){
+                tail.val = carry + l1.val + l2.val;
+                if(tail.val >= 10){
                     carry = 1;
-                    temp.val -= 10;
+                    tail.val -= 10;
                 } else {
                     carry = 0;
                 }
                 if(l1.next != null || l2.next != null){
-                    temp.next = new ListNode();
-                    temp = temp.next;
+                    tail.next = new ListNode();
+                    tail = tail.next;
                 }
                 l1 = l1.next; l2 = l2.next;
             } else if(l1 != null){
-                temp.val = carry + l1.val;
-                if(temp.val >= 10){
+                tail.val = carry + l1.val;
+                if(tail.val >= 10){
                     carry = 1;
-                    temp.val -= 10;
+                    tail.val -= 10;
                 } else {
                     carry = 0;
                 }
                 if(l1.next != null){
-                    temp.next = new ListNode();
-                    temp = temp.next;
+                    tail.next = new ListNode();
+                    tail = tail.next;
                 }
                 l1 = l1.next;
             } else if(l2 != null){
-                temp.val = carry + l2.val;
-                if(temp.val >= 10){
+                tail.val = carry + l2.val;
+                if(tail.val >= 10){
                     carry = 1;
-                    temp.val -= 10;
+                    tail.val -= 10;
                 } else {
                     carry = 0;
                 }
                 if(l2.next != null){
-                    temp.next = new ListNode();
-                    temp = temp.next;
+                    tail.next = new ListNode();
+                    tail = tail.next;
                 }
                 l2 = l2.next;
             }
         }
         if(carry == 1){
-            temp.next = new ListNode();
-            temp = temp.next;
-            temp.val = carry;
+            tail.next = new ListNode();
+            tail = tail.next;
+            tail.val = carry;
         }
 
-        return l3;
+        return head;
     }
 
     public AddTwoNumbers(){
