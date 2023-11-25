@@ -99,9 +99,37 @@ public class AddTwoNumbers {
         return head;
     }
 
+    public ListNode addtwoNumbersNoConversionInproved(ListNode l1, ListNode l2){
+        ListNode head = new ListNode();
+        ListNode tail = head;
+        int carry = 0;
+
+        while(l1 != null || l2 != null || carry != 0){
+            int val1 = (l1 != null) ? l1.val : 0;
+            int val2 = (l2 != null) ? l2.val : 0;
+
+            int sum = val1 + val2 + carry;
+            carry = sum/10;
+            sum = sum % 10;
+
+            tail.val = sum;
+            if((l1 != null && l1.next != null) || (l2 != null && l2.next != null) || carry != 0){
+                tail.next = new ListNode();
+                tail = tail.next;
+            }
+
+
+            l1 = (l1 != null) ? l1.next : null;
+            l2 = (l2 != null) ? l2.next : null;
+        }
+
+        return head;
+
+    }
+
     public AddTwoNumbers(){
-        String a = "0";
-        String b = "0";
+        String a = "24993";
+        String b = "564";
 
         ListNode l1 = new ListNode();
         ListNode l2 = new ListNode();
@@ -127,7 +155,7 @@ public class AddTwoNumbers {
         }
 
 
-        ListNode l3 = addTwoNumbersNoConversion(l1, l2);
+        ListNode l3 = addtwoNumbersNoConversionInproved(l1, l2);
 
         printList(l3);
     }
