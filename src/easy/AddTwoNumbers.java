@@ -1,0 +1,174 @@
+package easy;
+
+import java.math.BigInteger;
+
+public class AddTwoNumbers {
+
+    //Stringbuilder solution
+    //Cost of converting string to int
+    //Slow solution to what is possible
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        StringBuilder sb = new StringBuilder();
+        while(l1 != null){
+            sb.append(l1.val);
+            l1 = l1.next;
+        }
+        sb.reverse();
+        String temp = sb.toString();
+        sb.setLength(0);
+        while(l2 != null){
+            sb.append(l2.val);
+            l2 = l2.next;
+        }
+        sb.reverse();
+        String temp2 = sb.toString();
+        BigInteger temp3 = new BigInteger(temp).add(new BigInteger(temp2));
+        sb = new StringBuilder(temp3.toString());
+        sb.reverse();
+
+        ListNode l3 = new ListNode();
+
+        ListNode tempNode = l3;
+
+        for(int i = 0; i < sb.length(); i++){
+            tempNode.val = Character.getNumericValue(sb.charAt(i));
+            if (i < sb.length() - 1) {
+                tempNode.next = new ListNode();
+                tempNode = tempNode.next;
+            }
+        }
+
+        return l3;
+
+    }
+
+
+    //Without using bigint and without conversions between integers and strings
+    public ListNode addTwoNumbersNoConversion(ListNode l1, ListNode l2){
+        int carry = 0;
+        ListNode l3 = new ListNode();
+        ListNode temp = l3;
+        while(l1 != null || l2 != null){
+            if(l1 != null && l2 != null){
+                temp.val = carry + l1.val + l2.val;
+                if(temp.val >= 10){
+                    carry = 1;
+                    temp.val -= 10;
+                } else {
+                    carry = 0;
+                }
+                if(l1.next != null || l2.next != null){
+                    temp.next = new ListNode();
+                    temp = temp.next;
+                }
+                l1 = l1.next; l2 = l2.next;
+            } else if(l1 != null){
+                temp.val = carry + l1.val;
+                if(temp.val >= 10){
+                    carry = 1;
+                    temp.val -= 10;
+                } else {
+                    carry = 0;
+                }
+                if(l1.next != null){
+                    temp.next = new ListNode();
+                    temp = temp.next;
+                }
+                l1 = l1.next;
+            } else if(l2 != null){
+                temp.val = carry + l2.val;
+                if(temp.val >= 10){
+                    carry = 1;
+                    temp.val -= 10;
+                } else {
+                    carry = 0;
+                }
+                if(l2.next != null){
+                    temp.next = new ListNode();
+                    temp = temp.next;
+                }
+                l2 = l2.next;
+            }
+        }
+        if(carry == 1){
+            temp.next = new ListNode();
+            temp = temp.next;
+            temp.val = carry;
+        }
+
+        return l3;
+    }
+
+    public AddTwoNumbers(){
+        String a = "0";
+        String b = "0";
+
+        ListNode l1 = new ListNode();
+        ListNode l2 = new ListNode();
+
+        ListNode temp = l1;
+
+        for(int i = 0; i < a.length(); i++){
+            temp.val = Character.getNumericValue(a.charAt(i));
+            if (i < a.length() - 1) {
+                temp.next = new ListNode();
+                temp = temp.next;
+            }
+        }
+
+        temp = l2;
+
+        for(int i = 0; i < b.length(); i++){
+            temp.val = Character.getNumericValue(b.charAt(i));
+            if (i < a.length() - 1) {
+                temp.next = new ListNode();
+                temp = temp.next;
+            }
+        }
+
+
+        ListNode l3 = addTwoNumbersNoConversion(l1, l2);
+
+        printList(l3);
+    }
+
+    private void printList(ListNode l3){
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        while(l3 != null){
+            sb.append(l3.val + ",");
+            l3 = l3.next;
+        }
+        sb.setCharAt(sb.length()-1, ']');
+        System.out.println(sb);
+    }
+
+
+    public static void main(String args[]){
+        new AddTwoNumbers();
+    }
+
+
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+}
+
+
+
+
+
+
