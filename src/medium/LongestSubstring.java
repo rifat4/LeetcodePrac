@@ -4,9 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LongestSubstring {
-
+    
     private int lengthOfLongestSubstring(String s) {
-
         Map<Character, Integer> map = new HashMap<>();
         //int count = 0;
         int max = 0;
